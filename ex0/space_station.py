@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 
 class SpaceStation(BaseModel):
@@ -48,8 +48,6 @@ if __name__ == "__main__":
             oxygen_level=92.3,
             last_maintenance=datetime.fromisoformat("2026-10-20T10:30:00"),
         )
-    except ValueError as error:
-        print(error)
-    # except ValueError as error:
-        # for i in error.errors():
-        # print(i["msg"])
+    except ValidationError as error:
+        for i in error.errors():
+            print(i["msg"])
